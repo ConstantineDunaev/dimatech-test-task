@@ -25,6 +25,7 @@ def upgrade() -> None:
         'transaction',
         sa.column('transaction_id', sa.Integer),
         sa.column('account_id', sa.Integer),
+        sa.column('user_id', sa.Integer),
         sa.column('amount', sa.Float),
         sa.column('created_at', sa.DateTime),
     )
@@ -33,12 +34,14 @@ def upgrade() -> None:
         {
             'transaction_id': 1,
             'account_id': 2,
+            'user_id': 2,
             'amount': 100,
             'created_at': datetime.now()
         },
         {
             'transaction_id': 2,
             'account_id': 2,
+            'user_id': 2,
             'amount': 300,
             'created_at': datetime.now()
         },
