@@ -69,6 +69,13 @@ signature должна формироваться через SHA256 хеш, дл
 
 ## Переменные окружения
 
+ - `POSTGRES_HOST` - хост PostgreSQL
+ - `POSTGRES_PORT` - порт PostgreSQL
+ - `POSTGRES_USER` - пользователь PostgreSQL
+ - `POSTGRES_PASSWORD` - пароль пользователя PostgreSQL
+ - `POSTGRES_DATABASE` - имя базы данных PostgreSQL
+ - `SECRET_KEY` - секретный ключ, используемый для подписи транзакций
+
 ## Установка и запуск
 
 ### С использованием docker-compose
