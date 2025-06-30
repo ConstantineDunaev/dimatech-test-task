@@ -16,6 +16,6 @@ async def get_users() -> list[User]:
     """Возвращает всех пользователей"""
     async with AsyncSessionLocal() as session:
         result = await session.execute(
-            select(User).where(User.is_admin == False)
+            select(User).where(User.is_(False))
         )
         return result.scalars().all()
