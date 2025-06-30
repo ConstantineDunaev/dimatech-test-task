@@ -83,8 +83,13 @@ signature должна формироваться через SHA256 хеш, дл
 ### Без использования docker-compose
 
 ```commandline
+git clone git@github.com:ConstantineDunaev/dimatech-test-task.git
+cd dimatech-test-task
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 alembic upgrade head
-
+uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
 ## Документация API
