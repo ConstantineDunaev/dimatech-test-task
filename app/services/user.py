@@ -1,17 +1,8 @@
-from app.database.user import get_user_by_email
-from app.utils import verify_password
-from typing import Optional
 from app.schemas.user import User
-from app.exceptions.user import AuthenticationError
+from app.database import user
 
 
-async def authentication_user(email: str, password: str) -> Optional[User]:
-    """Возвращает пользователя по логину и паролю"""
-    user = await get_user_by_email(email)
-    if not user:
-        raise AuthenticationError
-    if not verify_password(password, user.hash_password):
-        raise AuthenticationError
-    return user
-
-
+async def get_users() -> list[User]:
+    """Возвращает список всех пользователей"""
+    users = await user.get_users()
+    return [User.from_orm(item) for item in users]

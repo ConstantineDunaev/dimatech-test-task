@@ -1,6 +1,6 @@
 from fastapi import Request
 from app.schemas.user import User
-from app.services.user import authentication_user
+from app.services.auth import authentication_user
 from app.exceptions.user import PermissionDenied
 
 

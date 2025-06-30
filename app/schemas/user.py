@@ -13,3 +13,6 @@ class UserCreate(UserBase):
 class User(UserBase):
     user_id: int = Field(title="ID пользователя")
 
+    class Config:
+        from_attributes = True
+
