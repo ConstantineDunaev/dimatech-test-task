@@ -32,6 +32,7 @@ def upgrade() -> None:
                     sa.Column('account_id', sa.Integer(), nullable=False),
                     sa.Column('user_id', sa.Integer(), nullable=False),
                     sa.ForeignKeyConstraint(['user_id'], ['user.user_id'], ),
+                    sa.Column('name', sa.String(), nullable=False),
                     sa.PrimaryKeyConstraint('account_id')
                     )
     op.create_table('transaction',

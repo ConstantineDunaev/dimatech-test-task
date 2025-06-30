@@ -24,17 +24,20 @@ def upgrade() -> None:
     account_table = sa.table(
         'account',
         sa.column('account_id', sa.Integer),
-        sa.column('user_id', sa.Integer)
+        sa.column('user_id', sa.Integer),
+        sa.column('name', sa.String)
     )
 
     op.bulk_insert(account_table, [
         {
             'account_id': 1,
             'user_id': 2,
+            'name': 'Счет №1'
         },
         {
             'account_id': 2,
-            'user_id': 2
+            'user_id': 2,
+            'name': 'Счет №2'
         },
     ])
 
