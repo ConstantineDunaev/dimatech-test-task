@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 
 class UserBase(BaseModel):
     email: str = Field(title="Email пользователя")
-    fullname: str = Field(title="Полное имя пользователя")
+    full_name: str = Field(title="Полное имя пользователя")
 
 
 class UserCreate(UserBase):
@@ -12,3 +12,4 @@ class UserCreate(UserBase):
 
 class User(UserBase):
     user_id: int = Field(title="ID пользователя")
+

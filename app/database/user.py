@@ -1,10 +1,12 @@
-from sqlalchemy.orm import Session
 from app.models.user import User
 from typing import Optional
+from app.database import AsyncSessionLocal, select
 
 
-def get_user_by_email(db: Session, email: str) -> Optional[User]:
+async def get_user_by_email(email: str) -> Optional[User]:
     """Возвращает пользователя по email"""
-    return db.query(User).filter(User.email == email).first()
-
-
+    async with AsyncSessionLocal() as session:
+        result = await session.execute(
+            select(User).where(User.email == email)
+        )
+        return result.scalar_one_or_none()
