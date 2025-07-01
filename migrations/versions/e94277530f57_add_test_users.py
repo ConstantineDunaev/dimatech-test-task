@@ -50,6 +50,9 @@ def upgrade() -> None:
             'is_admin': False
         },
     ])
+    op.execute(
+        "SELECT setval(pg_get_serial_sequence('\"user\"', 'user_id'), (SELECT MAX(user_id) FROM \"user\"))"
+    )
 
 
 def downgrade() -> None:

@@ -10,13 +10,11 @@ from typing import Sequence, Union
 from alembic import op
 import sqlalchemy as sa
 
-
 # revision identifiers, used by Alembic.
 revision: str = '053a3cde9e43'
 down_revision: Union[str, Sequence[str], None] = 'c124bf2cdbb6'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
-
 
 
 def upgrade() -> None:
@@ -40,6 +38,9 @@ def upgrade() -> None:
             'name': 'Счет №2'
         },
     ])
+    op.execute(
+        "SELECT setval(pg_get_serial_sequence('\"account\"', 'user_id'), (SELECT MAX(account_id) FROM \"account\"))"
+    )
 
 
 def downgrade() -> None:

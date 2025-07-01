@@ -23,7 +23,7 @@ def upgrade() -> None:
     """Upgrade schema."""
     transaction_table = sa.table(
         'transaction',
-        sa.column('transaction_id', sa.Integer),
+        sa.column('transaction_id', sa.String),
         sa.column('account_id', sa.Integer),
         sa.column('user_id', sa.Integer),
         sa.column('amount', sa.Float),
@@ -32,14 +32,14 @@ def upgrade() -> None:
 
     op.bulk_insert(transaction_table, [
         {
-            'transaction_id': 1,
+            'transaction_id': 'e4a1c3f2-7d9b-4f6a-9d8c-3b2e5f0a7d91',
             'account_id': 2,
             'user_id': 2,
             'amount': 100,
             'created_at': datetime.now()
         },
         {
-            'transaction_id': 2,
+            'transaction_id': '59f8b0c4-2a47-4d53-bda7-1e9e6c8f4b13',
             'account_id': 2,
             'user_id': 2,
             'amount': 300,
@@ -50,4 +50,5 @@ def upgrade() -> None:
 
 def downgrade() -> None:
     """Downgrade schema."""
-    op.execute("DELETE FROM \"transaction\" WHERE transaction_id IN (1, 2)")
+    op.execute("DELETE FROM \"transaction\" WHERE "
+               "transaction_id IN ('e4a1c3f2-7d9b-4f6a-9d8c-3b2e5f0a7d91','59f8b0c4-2a47-4d53-bda7-1e9e6c8f4b13')")
