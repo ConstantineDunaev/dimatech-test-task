@@ -37,6 +37,7 @@ async def check_signature(transaction_create: TransactionCreate) -> None:
     user_id = transaction_create.user_id
     transaction_string = f"{account_id}{amount}{transaction_id}{user_id}{SECRET_KEY}"
     new_signature = get_hash(transaction_string)
+    print(new_signature)
     if new_signature != transaction_create.signature:
         raise InvalidSingnatureError()
 

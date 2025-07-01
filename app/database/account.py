@@ -25,4 +25,4 @@ async def get_account(account_id: int) -> Account:
     stmt = select(Account).where(Account.account_id == account_id)
     async with AsyncSessionLocal() as session:
         result = await session.execute(stmt)
-        return result.scalar_one()
+        return result.scalar_one_or_none()
