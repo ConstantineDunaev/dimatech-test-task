@@ -4,7 +4,7 @@ from app.schemas.account import AccountWithBalance
 from app.services.account import get_accounts_with_balance
 
 account_router = APIRouter(prefix='/account',
-                           tags=['Пользователь'])
+                           tags=['Администратор', 'Пользователь'])
 
 
 @account_router.get(path='/',

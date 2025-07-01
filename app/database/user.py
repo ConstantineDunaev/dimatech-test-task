@@ -13,7 +13,7 @@ async def get_user_by_email(email: str) -> Optional[User]:
 
 async def get_users() -> list[User]:
     """Возвращает всех пользователей"""
-    smtp = select(User).where(User.is_admin.is_(False))
+    smtp = select(User)
     async with AsyncSessionLocal() as session:
         result = await session.execute(smtp)
         return result.scalars().all()
@@ -38,7 +38,7 @@ async def update_user(user_id: int, email: str, full_name: str, hash_password: s
         email=email,
         full_name=full_name,
         hash_password=hash_password
-    ).where(User.user_id == user_id).where(User.is_admin.is_(False)).returning(User)
+    ).where(User.user_id == user_id).returning(User)
     async with AsyncSessionLocal() as session:
         result = await session.execute(stmt)
         await session.commit()
@@ -47,7 +47,7 @@ async def update_user(user_id: int, email: str, full_name: str, hash_password: s
 
 async def delete_user(user_id: int) -> int:
     """Удаляет пользователя"""
-    stmt = delete(User).where(User.user_id == user_id).where(User.is_admin.is_(False))
+    stmt = delete(User).where(User.user_id == user_id)
     async with AsyncSessionLocal() as session:
         result = await session.execute(stmt)
         await session.commit()
