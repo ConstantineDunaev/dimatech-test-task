@@ -73,12 +73,24 @@ signature должна формироваться через SHA256 хеш, дл
  - `POSTGRES_PORT` - порт PostgreSQL
  - `POSTGRES_USER` - пользователь PostgreSQL
  - `POSTGRES_PASSWORD` - пароль пользователя PostgreSQL
- - `POSTGRES_DATABASE` - имя базы данных PostgreSQL
+ - `POSTGRES_DB` - имя базы данных PostgreSQL
  - `SECRET_KEY` - секретный ключ, используемый для подписи транзакций
 
 ## Установка и запуск
 
 ### С использованием docker-compose
+
+```commandline
+git clone git@github.com:ConstantineDunaev/dimatech-test-task.git
+cd dimatech-test-task
+echo "POSTGRES_HOST=127.0.0.1
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=postgres
+SECRET_KEY=gfdmhghif38yrf9ew0jkf32" > .env
+docker-compose up --build
+```
 
 ### Без использования docker-compose
 
@@ -92,9 +104,12 @@ alembic upgrade head
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --log-config logging.yaml
 ```
 
+# Проверка
+Приложение доступно по адресу http://95.81.114.235:8000/
+
 ## Документация API
 
-Документация API доступна по адресу `/redoc`
+Документация API доступна по адресу `/redoc` (http://95.81.114.235:8000/redoc)
 
 ## Тестовые данные для аутентификации
 Данные пользователя необходимо передавать в HTTP заголовках `email` и `password`.
