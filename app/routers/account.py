@@ -7,6 +7,6 @@ account_router = APIRouter(prefix='/account')
 
 
 @account_router.get(path='/')
-async def handler_get_accounts_with_balance(_: Request, user=Depends(get_user)) -> list[AccountWithBalance]:
+async def handler_get_accounts_with_balance(user=Depends(get_user)) -> list[AccountWithBalance]:
     accounts = await get_accounts_with_balance(user_id=user.user_id)
     return accounts
