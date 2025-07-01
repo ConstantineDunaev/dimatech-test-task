@@ -3,4 +3,4 @@ class TransactionIDAlreadyExistsError(Exception):
         self.transaction_id = transaction_id
 
     def __str__(self):
-        return f"Транзакция ID {self.transaction_id} уже существует."
+        return f"Платеж ID {self.transaction_id} уже существует."

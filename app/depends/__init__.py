@@ -1,4 +1,4 @@
-from fastapi import Request
+from fastapi import Request, Header
 from app.schemas.user import User
 from app.services.auth import authentication_user
 from app.exceptions.user import PermissionDeniedError
@@ -8,20 +8,16 @@ from app.config import SECRET_KEY
 from app.utils import get_hash
 
 
-async def get_user(request: Request) -> User:
+async def get_user(email: str = Header(..., description="Email пользователя"),
+                   password: str = Header(..., description="Пароль пользователя")) -> User:
     """Возвращает пользователя по email и password"""
-    headers = request.headers
-    email = headers.get('email')
-    password = headers.get('password')
     user = await authentication_user(email, password)
     return user
 
 
-async def get_admin(request: Request) -> User:
+async def get_admin(email: str = Header(..., description="Email администратора"),
+                    password: str = Header(..., description="Пароль администратора")) -> User:
     """Возвращает админа по email и password"""
-    headers = request.headers
-    email = headers.get('email')
-    password = headers.get('password')
     user = await authentication_user(email, password)
     if not user.is_admin:
         raise PermissionDeniedError()
@@ -40,4 +36,3 @@ async def check_signature(transaction_create: TransactionCreate) -> None:
     print(new_signature)
     if new_signature != transaction_create.signature:
         raise InvalidSingnatureError()
-

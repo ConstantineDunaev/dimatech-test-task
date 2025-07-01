@@ -7,7 +7,11 @@ from app.exceptions import (AuthenticationError, PermissionDeniedError, EmailAlr
                             UserHasAccountsError, InvalidSingnatureError, AccountNotFoundError,
                             TransactionIDAlreadyExistsError)
 
-app = FastAPI()
+app = FastAPI(openapi_url=None,
+              docs_url=None,
+              title="Тестовое задание Dimatech",
+              description="Реализация REST API для тестового задания.",
+              version="1.0.0")
 
 app.include_router(router)
 
