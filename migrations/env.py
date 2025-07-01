@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from app.database import Base
-from app.config import POSTGRES_DATABASE, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_PASSWORD, POSTGRES_USER
+from app.config import POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_PASSWORD, POSTGRES_USER
 from app.models import *
 
 DATABASE_URL = (
@@ -14,7 +14,7 @@ DATABASE_URL = (
     f"{POSTGRES_PASSWORD}@"
     f"{POSTGRES_HOST}:"
     f"{POSTGRES_PORT}/"
-    f"{POSTGRES_DATABASE}"
+    f"{POSTGRES_DB}"
 )
 
 config = context.config
