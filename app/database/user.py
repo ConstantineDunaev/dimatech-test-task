@@ -1,6 +1,6 @@
 from app.models.user import User
 from typing import Optional
-from app.database import AsyncSessionLocal, select, insert, update
+from app.database import AsyncSessionLocal, select, insert, update, delete
 
 
 async def get_user_by_email(email: str) -> Optional[User]:
@@ -45,4 +45,13 @@ async def update_user(user_id: int, email: str, full_name: str, hash_password: s
         result = await session.execute(stmt)
         await session.commit()
         return result.scalar_one()
+
+
+async def delete_user(user_id: int) -> int:
+    """Удаляет пользователя"""
+    async with AsyncSessionLocal() as session:
+        stmt = delete(User).where(User.user_id == user_id).where(User.is_admin.is_(False))
+        result = await session.execute(stmt)
+        await session.commit()
+        return result.rowcount
 

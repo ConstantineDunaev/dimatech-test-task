@@ -1,8 +1,8 @@
 from app.schemas.user import User, UserCreate, UserUpdate
 from app.database import user as user_db
 from app.utils import get_hash
-from sqlalchemy.exc import IntegrityError, NoResultFound
-from app.exceptions.user import EmailAlreadyExistsError, UserNotFoundError
+from sqlalchemy.exc import NoResultFound, IntegrityError
+from app.exceptions.user import EmailAlreadyExistsError, UserNotFoundError, UserHasAccountsError
 
 
 async def get_users() -> list[User]:
@@ -24,6 +24,7 @@ async def create_user(user_create: UserCreate) -> User:
 
 
 async def update_user(user_id: int, user_update: UserUpdate) -> User:
+    """Обновляет данные пользователя"""
     email = user_update.email
     full_name = user_update.full_name
     hash_password = get_hash(user_update.password)
@@ -36,3 +37,11 @@ async def update_user(user_id: int, user_update: UserUpdate) -> User:
     return User.from_orm(user)
 
 
+async def delete_user(user_id: int) -> None:
+    """Удаляет пользователя из БД"""
+    try:
+        row_count = await user_db.delete_user(user_id)
+        if row_count == 0:
+            raise UserNotFoundError(user_id)
+    except IntegrityError:
+        raise UserHasAccountsError(user_id)
