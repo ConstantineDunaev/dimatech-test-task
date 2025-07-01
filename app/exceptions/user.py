@@ -14,3 +14,11 @@ class EmailAlreadyExistsError(Exception):
 
     def __str__(self):
         return f"Email {self.email} уже используется."
+
+
+class UserNotFoundError(Exception):
+    def __init__(self, user_id: int):
+        self.user_id = user_id
+
+    def __str__(self):
+        return f"Пользователь с ID {self.user_id} не найден."
