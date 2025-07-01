@@ -5,7 +5,6 @@ debug.py
 *.db
 *.log
 *.pyc
-*.txt
 *.json
 *.spec
 *.session
