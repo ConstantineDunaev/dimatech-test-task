@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from typing import Optional
 
 
 class UserBase(BaseModel):
@@ -10,8 +11,10 @@ class UserCreate(UserBase):
     password: str = Field(title="Пароль пользователя", min_length=5)
 
 
-class UserUpdate(UserCreate):
-    pass
+class UserUpdate(BaseModel):
+    email: Optional[str] = Field(title="Email пользователя", min_length=5, default=None)
+    password: Optional[str] = Field(title="Пароль пользователя", min_length=5, default=None)
+    full_name: Optional[str] = Field(title="Полное имя пользователя", min_length=5, default=None)
 
 
 class User(UserBase):

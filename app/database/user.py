@@ -34,15 +34,23 @@ async def create_user(email: str, full_name: str, hash_password: str) -> User:
 
 async def update_user(user_id: int, email: str, full_name: str, hash_password: str) -> User:
     """Обновляет пользователя"""
-    stmt = update(User).values(
-        email=email,
-        full_name=full_name,
-        hash_password=hash_password
-    ).where(User.user_id == user_id).returning(User)
+    stmt = select(User).where(User.user_id == user_id)
     async with AsyncSessionLocal() as session:
         result = await session.execute(stmt)
+        user = result.scalar_one()
+
+        if email and email != user.email:
+            user.email = email
+        if hash_password and hash_password != user.hash_password:
+            user.hash_password = hash_password
+        if full_name and full_name != user.full_name:
+            user.full_name = full_name
+
         await session.commit()
-        return result.scalar_one()
+        await session.refresh(user)
+
+        return user
+
 
 
 async def delete_user(user_id: int) -> int:

@@ -27,7 +27,8 @@ async def update_user(user_id: int, user_update: UserUpdate) -> User:
     """Обновляет данные пользователя"""
     email = user_update.email
     full_name = user_update.full_name
-    hash_password = get_hash(user_update.password)
+    hash_password = get_hash(user_update.password) if user_update.password else None
+
     try:
         user = await user_db.update_user(user_id, email, full_name, hash_password)
     except IntegrityError:

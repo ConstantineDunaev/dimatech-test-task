@@ -27,10 +27,10 @@ async def handler_create_user(user_create: UserCreate) -> User:
     return user
 
 
-@user_router.put(path='/{user_id}',
-                 summary='Обновить пользователя.',
-                 description='Обновление данных существующего пользователя.'
-                 )
+@user_router.patch(path='/{user_id}',
+                   summary='Обновить пользователя.',
+                   description='Обновление данных существующего пользователя.'
+                   )
 async def handler_update_user(user_id: int, user_update: UserUpdate) -> User:
     """Обновляет пользователя"""
     user = await update_user(user_id, user_update)
@@ -46,5 +46,3 @@ async def handler_delete_user(user_id: int):
     """Удаляет пользователя"""
     await delete_user(user_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
-
-
