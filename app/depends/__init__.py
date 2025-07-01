@@ -32,6 +32,7 @@ async def check_signature(transaction_create: TransactionCreate) -> None:
     """Проверяет подпись входящего вебхука платежа"""
     account_id = transaction_create.account_id
     amount = transaction_create.amount
+    amount = int(amount) if amount.is_integer() else amount
     transaction_id = transaction_create.transaction_id
     user_id = transaction_create.user_id
     transaction_string = f"{account_id}{amount}{transaction_id}{user_id}{SECRET_KEY}"

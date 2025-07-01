@@ -4,7 +4,8 @@ from fastapi.exceptions import RequestValidationError
 from app.routers import router
 from app.schemas.error import Error
 from app.exceptions import (AuthenticationError, PermissionDeniedError, EmailAlreadyExistsError, UserNotFoundError,
-                            UserHasAccountsError, InvalidSingnatureError, AccountNotFoundError)
+                            UserHasAccountsError, InvalidSingnatureError, AccountNotFoundError,
+                            TransactionIDAlreadyExistsError)
 
 app = FastAPI()
 
@@ -58,5 +59,11 @@ async def email_already_exists_handler(_: Request, exc: EmailAlreadyExistsError)
 
 @app.exception_handler(UserHasAccountsError)
 async def user_has_accounts_handler(_: Request, exc: UserHasAccountsError):
+    return JSONResponse(status_code=409,
+                        content=Error(error=str(exc)).dict(exclude_none=True))
+
+
+@app.exception_handler(TransactionIDAlreadyExistsError)
+async def transaction_id_already_exists_handler(_: Request, exc: TransactionIDAlreadyExistsError):
     return JSONResponse(status_code=409,
                         content=Error(error=str(exc)).dict(exclude_none=True))

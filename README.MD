@@ -94,8 +94,45 @@ uvicorn app.main:app --host 127.0.0.1 --port 8000
 
 ## Документация API
 
-## Тестовые данные для авторизации
+## Тестовые данные для аутентификации
+Данные пользователя необходимо передавать в HTTP заголовках `email` и `password`.
 
 ### Администратор
+- email: admin@example.com 
+- пароль: admin_password
 
 ### Пользователь
+- email: user1@example.com
+- пароль: user1_password
+
+## Пример готовых транзакций для теста
+Для формирования подписи используется секретный ключ `gfdmhghif38yrf9ew0jkf32`
+```
+{
+  "transaction_id": "3f1e2a7c-9d4b-4f06-b8a7-2c8e5e2a19d1",
+  "user_id": 2,
+  "account_id": 1,
+  "amount": 500,
+  "signature": "db2e501221836f7f8c0922fc7ca205a384cbdcb9c7da3e618c0480d83533cef1"
+}
+```
+
+```
+{
+  "transaction_id": "d2f3c4e5-6b7a-48f1-9e3b-0a1f2d3e4c5b",
+  "user_id": 2,
+  "account_id": 2,
+  "amount": 350,
+  "signature": "e0d3d801b22992579b98da303a4584a8a87b8bb9f44a88e531dfe90b66f231b1"
+}
+```
+
+```
+{
+  "transaction_id": "7a9d3f1e-2b4c-4d06-8f7e-5c9a1b2d3e4f",
+  "user_id": 2,
+  "account_id": 2,
+  "amount": 200.99,
+  "signature": "4a3305ef1757f0559f8858432164c8b119f2176e5cd5ce728a73e6136845156c"
+}
+```

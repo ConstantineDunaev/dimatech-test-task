@@ -59,4 +59,4 @@ async def get_user(user_id: int) -> User:
     stmt = select(User).where(User.user_id == user_id).where(User.is_admin.is_(False))
     async with AsyncSessionLocal() as session:
         result = await session.execute(stmt)
-        return result.scalar_one()
+        return result.scalar_one_or_none()
