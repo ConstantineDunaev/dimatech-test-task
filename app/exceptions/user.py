@@ -3,7 +3,7 @@ class AuthenticationError(Exception):
         return "Ошибка аутентификации: проверьте содержимое HTTP заголовков email и password"
 
 
-class PermissionDenied(Exception):
+class PermissionDeniedError(Exception):
     def __str__(self):
         return "Нет прав для доступа к этому ресурсу"
 
